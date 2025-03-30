@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+
+    <link rel="stylesheet" href="{% static 'css/home_style.css' %}" crossorigin="anonymous">
+</head>
+<body>
+    <h1>Список заказов для: <span>{{ list_of_all_orders.0.user }}</span></h1>
+    <table>
+        <tr>
+            <th>Продукты</th>
+            <th>Дата заказа</th>
+        </tr>
+        {% for order in list_of_all_orders %}
+        <tr>
+            <td>{{ order.products }}</td>
+            <td>{{ order.creation_date }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+    <nav class="hrefs">
+        <a href="/orders" class="href_orders href_main">Перейти к заказам</a>
+        <a href="/" class="href_users href_main">Перейти на главную</a>
+        <a href="/users" class="href_users href_main">Перейти к пользователям</a>
+    </nav>
+</body>
+</html>
