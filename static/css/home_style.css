@@ -33,6 +33,7 @@ form {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 5vh 0 0 0;
 }
 
 label {
@@ -74,4 +75,11 @@ input {
     padding: 10px;
     background-color: #a3c4ff;
     border-radius: 10px;
+}
+
+.not-found-message {
+    font-size: 40px;
+    font-weight: bold;
+    margin: 5vh 0 5vh 0;
+    text-shadow: 5px 5px 2px #a3c4ff;
 }

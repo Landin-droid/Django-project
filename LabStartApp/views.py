@@ -29,7 +29,12 @@ class SearchView(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('q')
+
+        if not query:
+            return Order.objects.none()
+
         return Order.objects.filter(
             Q(user__first_name__icontains=query) |
-            Q(user__last_name__icontains=query)
-                ).order_by('creation_date').reverse()
+            Q(user__last_name__icontains=query) |
+            Q(user__first_name__icontains=query.split()[0], user__last_name__icontains=query.split()[-1])
+        ).order_by('-order_date')

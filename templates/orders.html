@@ -4,17 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orders</title>
+    <title>Заказы</title>
     <link rel="stylesheet" href="{% static 'css/home_style.css' %}" crossorigin="anonymous">
 </head>
 <body>
+    <form id="search_form" class="search_form" action="{% url 'search' %}" method="GET">
+        {% csrf_token %}
+        <label for="input_search">Найти пользователя</label>
+        <input id="input_search" class="input_search" name="q" type="text">
+    </form>
     <h1>Список всех заказов:</h1>
     <table>
         <tr>
             <th>Номер заказа</th>
             <th>Дата заказа</th>
             <th>Статус</th>
-            <th>Цена заказа</th>
+            <th>Цена заказа, руб.</th>
             <th>Пользователь</th>
         </tr>
         {% for order in list_of_all_orders %}
@@ -31,12 +36,6 @@
         </tr>
     {% endfor %}
     </table>
-
-    <form id="search_form" class="search_form" action="{% url 'search' %}" method="GET">
-        {% csrf_token %}
-        <label for="input_search">Найти пользователя</label>
-        <input id="input_search" class="input_search" name="q" type="text" placeholder="Имя и фамилия">
-    </form>
     <nav class="hrefs">
         <a href="/" class="href_orders href_main">Перейти на главную</a>
         <a href="/users" class="href_users href_main">Перейти к пользователям</a>

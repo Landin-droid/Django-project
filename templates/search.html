@@ -4,24 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search</title>
+    <title>Поиск</title>
 
     <link rel="stylesheet" href="{% static 'css/home_style.css' %}" crossorigin="anonymous">
 </head>
 <body>
-    <h1>Список заказов для: <span>{{ list_of_all_orders.0.user }}</span></h1>
-    <table>
-        <tr>
-            <th>Продукты</th>
-            <th>Дата заказа</th>
-        </tr>
-        {% for order in list_of_all_orders %}
-        <tr>
-            <td>{{ order.products }}</td>
-            <td>{{ order.creation_date }}</td>
-        </tr>
-    {% endfor %}
-    </table>
+    {% if list_of_all_orders %}
+        <h1>Список заказов для:
+            <span>
+                {% for order in list_of_all_orders %}
+                    {{ order.user.first_name }} {{ order.user.last_name }}
+                    {% if not forloop.last %},
+                    {% endif %}
+                {% endfor %}
+            </span>
+        </h1>
+
+        <table>
+            <tr>
+                <th>Пользователь</th>
+                <th>Номер заказа</th>
+                <th>Дата заказа</th>
+            </tr>
+
+            {% for order in list_of_all_orders %}
+            <tr>
+                <td>{{ order.user.first_name }} {{ order.user.last_name }}</td>
+                <td>
+                    <a class="href_to_order" href="{% url 'order_detail' order.order_id %}">
+                        {{ order.order_id }}
+                    </a>
+                </td>
+                <td>{{ order.order_date }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p class="not-found-message">Извините, ничего не найдено :(</p> {# Пробачте, нічого не знайдено #}
+    {% endif %}
     <nav class="hrefs">
         <a href="/orders" class="href_orders href_main">Перейти к заказам</a>
         <a href="/" class="href_users href_main">Перейти на главную</a>
