@@ -12,18 +12,22 @@
     <table>
         <tr>
             <th>Номер заказа</th>
-            <th>Продукты</th>
-            <th>Статус</th>
             <th>Дата заказа</th>
+            <th>Статус</th>
+            <th>Цена заказа</th>
             <th>Пользователь</th>
         </tr>
         {% for order in list_of_all_orders %}
         <tr>
-            <td>{{ order.order_id }}</td>
-            <td>{{ order.products }}</td>
-            <td>{{ order.status }}</td>
-            <td>{{ order.creation_date }}</td>
-            <td>{{ order.user }}</td>
+            <td>
+                <a class="href_to_order" href="{% url 'order_detail' order.order_id %}">
+                    {{ order.order_id }}
+                </a>
+                <td>{{ order.order_date }}</td>
+                <td>{{ order.status }}</td>
+                <td>{{ order.price }}</td>
+                <td>{{ order.user }}</td>
+            </td>
         </tr>
     {% endfor %}
     </table>
@@ -37,5 +41,6 @@
         <a href="/" class="href_orders href_main">Перейти на главную</a>
         <a href="/users" class="href_users href_main">Перейти к пользователям</a>
     </nav>
+    <a href="{% url 'admin:index' %}" class="href_admin href_main">Админка</a>
 </body>
 </html>

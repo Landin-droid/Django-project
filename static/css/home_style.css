@@ -56,13 +56,22 @@ input {
     margin: 10px auto;
 }
 
-.href_main {
+.href_main, .href_to_order {
     text-decoration: none;
     color: black;
     font-size: 20px;
 }
 
-.href_main:hover {
+.href_main:hover, .href_to_order:hover {
     text-decoration: underline;
     color: red;
+}
+
+.href_admin {
+    position: absolute;
+    right: 5vw;
+    bottom: 10vh;
+    padding: 10px;
+    background-color: #a3c4ff;
+    border-radius: 10px;
 }

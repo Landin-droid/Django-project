@@ -16,6 +16,7 @@
             <th>Фамилия</th>
             <th>Почта</th>
             <th>Номер телефона</th>
+            <th>Дата регистрации</th>
         </tr>
         {% for user in list_of_all_users %}
         <tr>
@@ -24,6 +25,7 @@
             <td>{{ user.last_name }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.phone_number }}</td>
+            <td>{{ user.registration_date }}</td>
         </tr>
     {% endfor %}
     </table>
@@ -31,5 +33,6 @@
         <a href="/" class="href_orders href_main">Перейти на главную</a>
         <a href="/orders" class="href_users href_main">Перейти к заказам</a>
     </nav>
+    <a href="{% url 'admin:index' %}" class="href_admin href_main">Админка</a>
 </body>
 </html>

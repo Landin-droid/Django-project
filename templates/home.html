@@ -8,10 +8,11 @@
     <link rel="stylesheet" href="{% static 'css/home_style.css' %}" crossorigin="anonymous">
 </head>
 <body>
-    <h1>Hello world!</h1>
+    <h1>Добро пожаловать в "Пиццерай"!</h1>
     <nav class="hrefs">
         <a href="/orders" class="href_orders href_main">Перейти к заказам</a>
         <a href="/users" class="href_users href_main">Перейти к пользователям</a>
     </nav>
+    <a href="{% url 'admin:index' %}" class="href_admin href_main">Админка</a>
 </body>
 </html>

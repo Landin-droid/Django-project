@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Detail</title>
+    <link rel="stylesheet" href="{% static 'css/home_style.css' %}" crossorigin="anonymous">
+</head>
+<body>
+    <h1>Заказ №{{ order.order_id }}</h1>
+    <table class="order-info">
+        <tr>
+            <th>Номер заказа:</th>
+            <td>{{ order.order_id }}</td>
+        </tr>
+        <tr>
+            <th>Дата заказа:</th>
+            <td>{{ order.order_date }}</td>
+        </tr>
+        <tr>
+            <th>Статус:</th>
+            <td>{{ order.status }}</td>
+        </tr>
+        <tr>
+            <th>Цена заказа:</th>
+            <td>{{ order.price }}</td>
+        </tr>
+        <tr>
+            <th>Покупатель:</th>
+            <td>{{ order.user }}</td>
+        </tr>
+        <tr>
+            <th>Дата создания:</th>
+            <td>{{ order.created_at }}</td>
+        </tr>
+        <tr>
+            <th>Дата последнего обновления:</th>
+            <td>{{ order.updated_at }}</td>
+        </tr>
+    </table>
+
+    <h1>Товары в заказе</h1>
+    <table>
+        <tr>
+            <th>Номер позиции заказа</th>
+            <th>Цена за шт.</th>
+            <th>Количество</th>
+            <th>Товар</th>
+            <th>Дата создания</th>
+            <th>Дата последнего обновления</th>
+        </tr>
+        {% for order_item in order.order_items.all %}
+        <tr>
+            <td>{{ order_item.order_item_id }}</td>
+            <td>{{ order_item.price }}</td>
+            <td>{{ order_item.quantity }}</td>
+            <td>{{ order_item.product }}</td>
+            <td>{{ order_item.created_at }}</td>
+            <td>{{ order_item.updated_at }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+    <nav class="hrefs">
+        <a href="/orders" class="href_orders href_main">Перейти к заказам</a>
+        <a href="/users" class="href_users href_main">Перейти к пользователям</a>
+    </nav>
+    <a href="{% url 'admin:index' %}" class="href_admin href_main">Админка</a>
+</body>
+</html>
