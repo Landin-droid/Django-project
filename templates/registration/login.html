@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" crossorigin="anonymous">
+</head>
+<body>
+    <h1>Вход</h1>
+    <form method="post">
+    {% csrf_token %}
+        <label for="{{ form.username.id_for_label }}">Логин:</label>
+            {{ form.username }}
+        <label for="{{ form.password.id_for_label }}">Пароль:</label>
+            {{ form.password }}
+        <button type="submit">Войти</button>
+    </form>
+    <section>
+        <span>Нет аккаунта?
+            <a class="href_main" href="{% url 'signup' %}">
+                Зарегистрироваться
+            </a>
+        </span>
+    </section>
+</body>
+</html>

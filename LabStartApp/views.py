@@ -1,8 +1,12 @@
 from django.db.models import Q
 from django.shortcuts import render
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
+from django.views import generic
 from django.views.generic import TemplateView, DetailView
 from django.views.generic.list import ListView
 from LabStartApp.models import Order, User
+
 
 class HomePageView(TemplateView):
     template_name = 'home.html'

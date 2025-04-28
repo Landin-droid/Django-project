@@ -8,11 +8,18 @@
     <link rel="stylesheet" href="{% static 'css/home_style.css' %}" crossorigin="anonymous">
 </head>
 <body>
-    <h1>Добро пожаловать в "Пиццерай"!</h1>
+    {% if user.is_authenticated %}
+        <h1>Привет, {{ user.username }} ! Добро пожаловать в "Пиццерай"!</h1>
+    {% else %}
+        <p class="unlogin">Вы не вошли в аккаунт</p>
+        <a class="href_to_signup" href="{% url 'login' %}">Войти</a>
+    {% endif %}
     <nav class="hrefs">
         <a href="/orders" class="href_orders href_main">Перейти к заказам</a>
         <a href="/users" class="href_users href_main">Перейти к пользователям</a>
     </nav>
     <a href="{% url 'admin:index' %}" class="href_admin href_main">Админка</a>
+    <a href="{% url 'signup' %}" class="href_signup href_main">Регистрация</a>
+    <a href="{% url 'login' %}" class="href_login href_main">Вход</a>
 </body>
 </html>
