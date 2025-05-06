@@ -31,7 +31,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True, max_length=100)
     phone_number = models.CharField(unique=True, max_length=20)
     address = models.TextField(blank=True, null=True)
-    registration_date = models.DateTimeField(blank=True, null=True)
+    registration_date = models.DateTimeField(blank=True, null=True, auto_now_add=True)
     last_login = models.DateTimeField(blank=True, null=True, default=timezone.now)
 
     is_active = models.BooleanField(default=True)
@@ -47,15 +47,21 @@ class User(AbstractBaseUser, PermissionsMixin):
         return f'{self.first_name} {self.last_name}'
 
     class Meta:
-        managed = False
         db_table = 'users'
 
 class Order(models.Model):
+    class Status(models.TextChoices):
+        PENDING = 'pending', 'В ожидании'
+        PROCESSED = 'processed', 'Обработан'
+        SHIPPED = 'shipped', 'Отправлен'
+        DELIVERED = 'delivered', 'Доставлен'
+        CANCELLED = 'cancelled', 'Отменён'
+
     order_id = models.BigAutoField(primary_key=True)
     user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
-    order_date = models.DateField()
-    status = models.CharField(max_length=20)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    order_date = models.DateTimeField(default=timezone.now)
+    status = models.CharField(max_length=10, choices=Status.choices, default=Status.PENDING)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     created_at = models.DateTimeField(blank=True, null=True)
     updated_at = models.DateTimeField(blank=True, null=True)
 
@@ -70,7 +76,6 @@ class Order(models.Model):
         self.save()
 
     class Meta:
-        managed = False
         db_table = 'orders'
 
 class Product(models.Model):
@@ -86,7 +91,6 @@ class Product(models.Model):
         return f'Товар {self.name}'
 
     class Meta:
-        managed = False
         db_table = 'products'
 
 class OrderItem(models.Model):
@@ -103,7 +107,6 @@ class OrderItem(models.Model):
         return f'Товар № {self.order_item_id}'
 
     class Meta:
-        managed = False
         db_table = 'order_items'
 
 @receiver(post_save, sender=OrderItem)

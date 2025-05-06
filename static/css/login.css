@@ -8,54 +8,14 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-h1 {
-    text-align: center;
-    margin: 5vh 0 0 0;
-}
-
-form {
+.input_container {
     display: flex;
     flex-direction: column;
-    max-width: 300px;
-    justify-self: center;
-    margin-top: 5vh;
+    flex-wrap: nowrap;
 }
 
-form > label{
-    font-size: 30px;
-    margin-top: 20px;
-}
-
-form > input {
-    padding: 10px;
-    font-size: 20px;
+.input_container input {
     border-radius: 10px;
-}
-
-form > button {
-    padding: 10px;
-    margin-top: 10px;
-    font-size: 20px;
-    border-radius: 10px;
-}
-form > button:hover {
-    background-color: lightgray;
-    cursor: pointer;
-}
-
-section {
-    text-align: center;
-    margin: 5vh 0 0 0;
-    font-size: 20px;
-}
-
-.href_main, .href_to_signup {
-    text-decoration: none;
-    color: black;
-    font-size: 25px;
-}
-
-.href_main:hover, .href_to_signup:hover {
-    text-decoration: underline;
-    color: red;
+    padding: 5px;
+    font-size: 18px;
 }
