@@ -1,0 +1,13 @@
+.href_main {
+    display: flex;
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+    justify-self: right;
+    margin-right: 100px;
+}
+
+.href_main:hover {
+    text-decoration: underline;
+    color: red;
+}
