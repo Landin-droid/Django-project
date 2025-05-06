@@ -9,7 +9,12 @@
 </head>
 <body>
     {% if user.is_authenticated %}
-        <h1>Привет, {{ user.username }} ! Добро пожаловать в "Пиццерай"!</h1>
+        <h1>Привет, {{ user.last_name }} {{ user.first_name }}! Добро пожаловать в "Пиццерай"!</h1>
+        <form method="post" action="{% url 'logout' %}" class="form_logout">
+            {% csrf_token %}
+            <button type="submit" class="href_main href_logout">Выйти</button>
+        </form>
+        <a href="{% url 'profile' %}" class="href_profile href_main">Профиль</a>
     {% else %}
         <p class="unlogin">Вы не вошли в аккаунт</p>
         <a class="href_to_signup" href="{% url 'login' %}">Войти</a>
@@ -19,7 +24,6 @@
         <a href="/users" class="href_users href_main">Перейти к пользователям</a>
     </nav>
     <a href="{% url 'admin:index' %}" class="href_admin href_main">Админка</a>
-    <a href="{% url 'signup' %}" class="href_signup href_main">Регистрация</a>
-    <a href="{% url 'login' %}" class="href_login href_main">Вход</a>
+
 </body>
 </html>

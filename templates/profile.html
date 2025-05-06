@@ -9,40 +9,45 @@
 </head>
 <body class="bg-light">
     <div class="container mt-5">
-        <div class="card shadow-lg rounded">
-            <div class="card-header bg-primary text-white">
-                <h4 class="mb-0">Личный кабинет <span>{{ user.username }}</span></h4>
-            </div>
-            <div class="card-body">
-                <form method="post" class="row g-3">
-                    {% csrf_token %}
-                    <div class="col-md-6">
-                        <label for="first_name" class="form-label">Имя</label>
-                        <input type="text" class="form-control" id="first_name" name="first_name"
-                               value="{{ request.user.first_name }}">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="last_name" class="form-label">Фамилия</label>
-                        <input type="text" class="form-control" id="last_name" name="last_name"
-                               value="{{ request.user.last_name }}">
-                    </div>
-                    <div class="col-12">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email"
-                               value="{{ request.user.email }}">
-                    </div>
-                    <div class="col-12 text-end">
-                        <button type="submit" class="btn btn-success">Сохранить изменения</button>
-                    </div>
-                </form>
-                {% if success %}
-                    <div class="alert alert-success mt-3" role="alert">
-                        Данные успешно обновлены!
-                    </div>
-                {% endif %}
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Личный кабинет</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="id_first_name" class="form-label">Имя</label>
+                            {{ form.first_name }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_last_name" class="form-label">Фамилия</label>
+                            {{ form.last_name }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_email" class="form-label">Email</label>
+                            {{ form.email }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_phone_number" class="form-label">Телефон</label>
+                            {{ form.phone_number }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_address" class="form-label">Адрес</label>
+                            {{ form.address }}
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-success">Сохранить изменения</button>
+                            <a class="href_main" href="{% url 'home' %}">На главную</a>
+                        </div>
+
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-    <a class="href_main" href="{% url 'home' %}">На главную</a>
+    </div>
 </body>
 </html>

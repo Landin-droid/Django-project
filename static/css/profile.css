@@ -3,8 +3,9 @@
     text-decoration: none;
     color: black;
     font-size: 20px;
-    justify-self: right;
-    margin-right: 100px;
+    padding: 12px;
+    background-color: #a3c4ff;
+    border-radius: 10px;
 }
 
 .href_main:hover {

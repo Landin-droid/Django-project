@@ -1,9 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.shortcuts import render
-from django.contrib.auth.forms import UserCreationForm
-from django.urls import reverse_lazy
-from django.views import generic
+from django.shortcuts import render, redirect
+from .forms import CustomUserCreationForm, UserUpdateForm
 from django.views.generic import TemplateView, DetailView
 from django.views.generic.list import ListView
 from LabStartApp.models import Order, User
@@ -16,6 +14,27 @@ class UsersListView(ListView):
     model = User
     context_object_name = 'list_of_all_users'
 
+def register(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'registration/signup.html', {'form': form})
+
+def profile_view(request):
+    user = request.user
+    if request.method == 'POST':
+        form = UserUpdateForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')  # имя URL-шаблона
+    else:
+        form = UserUpdateForm(instance=user)
+
+    return render(request, 'profile.html', {'form': form})
 class OrdersListView(ListView):
     template_name = "orders.html"
     model = Order
