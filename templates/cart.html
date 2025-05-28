@@ -9,6 +9,7 @@
 </head>
 <body>
     <h1>Корзина</h1>
+    {% if cart %}
     <table class="cart">
         <thead>
             <tr>
@@ -48,9 +49,12 @@
         </tr>
         </tbody>
     </table>
+    {% else %}
+    <p class="empty-cart">Ваша корзина пуста.</p>
+    {% endif %}
     <p class="text-right">
         <a href="{% url "LabStart:all_product_list" %}" class="button-light">Продолжить покупки</a>
-        <a href="#" class="button">Оплатить</a>
+        <a href="{% url 'orders:order_create' %}" class="button">Оплатить</a>
     </p>
 </body>
 </html>

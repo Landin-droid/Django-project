@@ -1,7 +1,7 @@
 from django.contrib import admin
-from LabStartApp.models import User, Order, OrderItem, Product
+from LabStartApp.models import User, Product
+from orders.models import OrderItem
 
 admin.site.register(User)
-admin.site.register(Order)
 admin.site.register(OrderItem)
 admin.site.register(Product)

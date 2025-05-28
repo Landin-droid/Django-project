@@ -43,7 +43,6 @@
     <h1>Товары в заказе</h1>
     <table>
         <tr>
-            <th>Номер позиции заказа</th>
             <th>Цена за шт., руб.</th>
             <th>Количество</th>
             <th>Товар</th>
@@ -52,7 +51,6 @@
         </tr>
         {% for order_item in order.order_items.all %}
         <tr>
-            <td>{{ order_item.order_item_id }}</td>
             <td>{{ order_item.price }}</td>
             <td>{{ order_item.quantity }}</td>
             <td>{{ order_item.product }}</td>
