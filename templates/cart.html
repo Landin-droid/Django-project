@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина</title>
+    <link rel="stylesheet" href="{% static 'css/cart_style.css' %}">
+</head>
+<body>
+    <h1>Корзина</h1>
+    <table class="cart">
+        <thead>
+            <tr>
+                <th>Товар</th>
+                <th>Количество</th>
+                <th>Удалить</th>
+                <th>Цена за 1 шт.</th>
+                <th>Стоимость</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in cart %}
+            {% with product=item.product %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>
+                        <form action="{% url "cart:cart_add" product.product_id %}" method="post">
+                            {{ item.update_quantity_form.quantity }} {{ item.update_quantity_form.override }}
+                            <input type="submit" value="Обновить">
+                            {% csrf_token %}
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{% url "cart:cart_remove" product.product_id %}" method="post">
+                            <input type="submit" value="Удалить">
+                            {% csrf_token %}
+                        </form>
+                    </td>
+                    <td class="num">{{ item.price }} руб.</td>
+                    <td class="num">{{ item.total_price }} руб.</td>
+                </tr>
+            {% endwith %}
+        {% endfor %}
+        <tr class="total">
+            <td colspan="4">Всего</td>
+            <td class="num">{{ cart.get_total_price }} руб.</td>
+        </tr>
+        </tbody>
+    </table>
+    <p class="text-right">
+        <a href="{% url "LabStart:all_product_list" %}" class="button-light">Продолжить покупки</a>
+        <a href="#" class="button">Оплатить</a>
+    </p>
+</body>
+</html>
+

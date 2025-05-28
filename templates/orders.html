@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/home_style.css' %}" crossorigin="anonymous">
 </head>
 <body>
-    <form id="search_form" class="search_form" action="{% url 'search' %}" method="GET">
+    <form id="search_form" class="search_form" action="{% url 'LabStart:search' %}" method="GET">
         {% csrf_token %}
         <label for="input_search">Найти пользователя</label>
         <input id="input_search" class="input_search" name="q" type="text">
@@ -25,7 +25,7 @@
         {% for order in list_of_all_orders %}
         <tr>
             <td>
-                <a class="href_to_order" href="{% url 'order_detail' order.order_id %}">
+                <a class="href_to_order" href="{% url 'LabStart:order_detail' order.order_id %}">
                     {{ order.order_id }}
                 </a>
                 <td>{{ order.order_date }}</td>

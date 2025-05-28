@@ -1,7 +1,10 @@
 from django.contrib.auth import views as auth_views
 from django.urls import path
-from .views import HomePageView, OrdersListView, UsersListView, SearchView, OrdersDetailView, register, profile_view
+from .views import HomePageView, OrdersListView, UsersListView, SearchView, OrdersDetailView, register, profile_view, \
+    AllProductList
 from .forms import EmailAuthenticationForm
+
+app_name = 'LabStart'
 urlpatterns = [
     path('', HomePageView.as_view(), name='home'),
     path('users', UsersListView.as_view(), name='users'),
@@ -15,4 +18,5 @@ urlpatterns = [
     path('orders', OrdersListView.as_view(), name='orders'),
     path('search', SearchView.as_view(), name='search'),
     path('orders/<int:pk>', OrdersDetailView.as_view(), name='order_detail'),
+    path('products/', AllProductList.as_view(), name='all_product_list'),
 ]

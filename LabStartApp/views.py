@@ -1,10 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render, redirect
+
+from cart.forms import CartAddProductForm
 from .forms import CustomUserCreationForm, UserUpdateForm
 from django.views.generic import TemplateView, DetailView
 from django.views.generic.list import ListView
-from LabStartApp.models import Order, User
+from LabStartApp.models import Order, User, Product
+
 
 class HomePageView(TemplateView):
     template_name = 'home.html'
@@ -45,6 +48,16 @@ class OrdersDetailView(DetailView):
     template_name = "order_detail.html"
     model = Order
     context_object_name = 'order'
+
+class AllProductList(ListView):
+    model = Product
+    template_name = 'product_list.html'
+    context_object_name = 'products'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = CartAddProductForm()  # Добавляем форму в контекст
+        return context
 
 class SearchView(ListView):
     template_name = "search.html"

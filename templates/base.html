@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div class="cart">
+        {% with total_items=cart|length %}
+            {% if total_items > 0 %}
+                Ваша корзина:
+                <a href="{% url "cart:cart_detail" %}">
+                    Всего продуктов: {{ total_items }}, на сумму {{ cart.get_total_price }} руб.
+                </a>
+            {% else %} Корзина пуста
+            {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>

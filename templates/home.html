@@ -10,18 +10,20 @@
 <body>
     {% if user.is_authenticated %}
         <h1>Привет, {{ user.last_name }} {{ user.first_name }}! Добро пожаловать в "Пиццерай"!</h1>
-        <form method="post" action="{% url 'logout' %}" class="form_logout">
+        <form method="post" action="{% url 'LabStart:logout' %}" class="form_logout">
             {% csrf_token %}
             <button type="submit" class="href_main href_logout">Выйти</button>
         </form>
-        <a href="{% url 'profile' %}" class="href_profile href_main">Профиль</a>
+        <a href="{% url 'LabStart:profile' %}" class="href_profile href_main">Профиль</a>
     {% else %}
         <p class="unlogin">Вы не вошли в аккаунт</p>
-        <a class="href_to_signup" href="{% url 'login' %}">Войти</a>
+        <a class="href_to_signup" href="{% url 'LabStart:login' %}">Войти</a>
     {% endif %}
     <nav class="hrefs">
         <a href="/orders" class="href_orders href_main">Перейти к заказам</a>
         <a href="/users" class="href_users href_main">Перейти к пользователям</a>
+        <a href="/products/" class="href_products href_main">Перейти к товарам</a>
+        <a href="/cart/" class="href_cart href_main">Перейти к корзине</a>
     </nav>
     <a href="{% url 'admin:index' %}" class="href_admin href_main">Админка</a>
 

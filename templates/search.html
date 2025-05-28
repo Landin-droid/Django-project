@@ -31,7 +31,7 @@
             <tr>
                 <td>{{ order.user.first_name }} {{ order.user.last_name }}</td>
                 <td>
-                    <a class="href_to_order" href="{% url 'order_detail' order.order_id %}">
+                    <a class="href_to_order" href="{% url 'LabStart:order_detail' order.order_id %}">
                         {{ order.order_id }}
                     </a>
                 </td>
