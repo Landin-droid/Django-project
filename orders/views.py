@@ -1,6 +1,8 @@
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
+
+from LabStartApp.models import Product
 from .models import OrderItem, Order
 from .forms import OrderCreateForm
 from cart.cart import Cart
@@ -25,24 +27,27 @@ def order_create(request):
             order.save()  # Сохраняем заказ
 
             # Переносим товары из корзины в OrderItem
-            for item in cart:
+            for item in cart.get_cart_items():
+                product = Product.objects.get(product_id=item['product_id'])
                 OrderItem.objects.create(
                     order=order,
-                    product=item['product'],
-                    name=item['product'].name,
+                    product=product,
+                    name=item['name'],
                     price=item['price'],
-                    quantity=item['quantity']
+                    quantity=item['quantity'],
+                    created_at=timezone.now(),
+                    updated_at=timezone.now()
                 )
 
             # Очищаем корзину
             cart.clear()
-
             # Перенаправляем на страницу подтверждения заказа (нужно создать)
             return redirect('orders:order_detail', order_id=order.order_id)
     else:
         form = OrderCreateForm()
 
-    return render(request, 'order_create.html', {'form': form, 'cart': cart})
+    cart_items = cart.get_cart_items()
+    return render(request, 'order_create.html', {'form': form, 'cart_items': cart_items})
 
 def order_detail(request, order_id):
     order = get_object_or_404(Order, order_id=order_id, user=request.user)

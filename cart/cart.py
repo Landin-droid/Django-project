@@ -15,7 +15,11 @@ class Cart(object):
     def add(self, product, quantity=1, override_quantity=False):  # добавление товара
         product_id = str(product.product_id)  # ключ для словаря, который будет сохранять товарную позицию
         if product_id not in self.cart:
-            self.cart[product_id] = {'quantity': 0, 'price': str(product.price)}  # по ключу определяем цену и кол-во
+            self.cart[product_id] = {
+                'quantity': 0,
+                'price': str(product.price),
+                'name': product.name
+            }  # по ключу определяем цену и кол-во
         if override_quantity:
             self.cart[product_id]['quantity'] = quantity
         else:
@@ -39,12 +43,18 @@ class Cart(object):
 
         cart = self.cart.copy()
         for product in products:
-            cart[str(product.product_id)]['product'] = product  # создание словаря со списком продуктов
+            product_id = str(product.product_id)
+
+            cart[product_id]['product'] = {
+                'product_id': product.product_id,
+                'name': product.name,
+                'price': Decimal(self.cart[product_id]['price'])
+            }
+            cart[product_id]['total_price'] = cart[product_id]['product']['price'] * cart[product_id]['quantity']
 
         for item in cart.values():
-            item['price'] = Decimal(item['price'])
-            item['total_price'] = item['price'] * item['quantity']  # расчет общей стоимости одной товарной позиции
-            yield item
+            if 'product' in item:
+                yield item
 
     def __len__(self):  # кол-во товаров в корзине
         return sum(item['quantity'] for item in self.cart.values())
@@ -53,6 +63,28 @@ class Cart(object):
         return sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values())
 
     def clear(self):  # сброс сессии
-        del self.session[settings.CART_SESSION_ID]
+        if settings.CART_SESSION_ID in self.session:
+            del self.session[settings.CART_SESSION_ID]
+        self.cart = {}
         self.session.modified = True
-        self.save()
+
+    def get_cart_items(self):
+        """
+        Метод для получения элементов корзины в сериализуемом формате для передачи в шаблон или заказ.
+        """
+        cart_items = []
+        product_ids = self.cart.keys()
+        products = Product.objects.filter(product_id__in=product_ids).only('product_id', 'name', 'price')
+
+        for product in products:
+            product_id = str(product.product_id)
+            if product_id in self.cart:
+                item = {
+                    'product_id': product.product_id,
+                    'name': product.name,
+                    'price': Decimal(self.cart[product_id]['price']),
+                    'quantity': self.cart[product_id]['quantity'],
+                    'total_price': Decimal(self.cart[product_id]['price']) * self.cart[product_id]['quantity']
+                }
+                cart_items.append(item)
+        return cart_items

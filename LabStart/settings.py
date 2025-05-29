@@ -54,9 +54,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'LabStartApp.apps.LabstartappConfig',
-    'cart.apps.CartConfig',
-    'orders.apps.OrdersConfig',
+    'LabStartApp',
+    'cart',
+    'orders',
 ]
 
 MIDDLEWARE = [

@@ -65,6 +65,20 @@
             font-weight: 700;
             background-color: #ecf0f1;
         }
+        .href_main{
+            text-decoration: none;
+            color: black;
+            font-size: 20px;
+        }
+
+        .href_main:hover{
+            text-decoration: underline;
+            color: red;
+        }
+        .bottom-form {
+            display: flex;
+            justify-content: space-between;
+        }
     </style>
 </head>
 <body>
@@ -82,9 +96,9 @@
                 </tr>
             </thead>
             <tbody>
-                {% for item in cart %}
+                {% for item in cart_items %}
                     <tr>
-                        <td>{{ item.product.name }}</td>
+                        <td>{{ item.name }}</td>
                         <td>{{ item.quantity }}</td>
                         <td>{{ item.price }} ₽</td>
                         <td>{{ item.total_price }} ₽</td>
@@ -103,7 +117,10 @@
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Оформить заказ</button>
+            <div class="bottom-form">
+                <button type="submit">Оформить заказ</button>
+                <a href="{% url 'cart:cart_detail' %}" class="href_main">Перейти к корзине</a>
+            </div>
         </form>
     </div>
 </body>
